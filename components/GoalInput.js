@@ -1,4 +1,11 @@
-import { View, TextInput, StyleSheet, Button } from "react-native";
+import {
+  View,
+  TextInput,
+  StyleSheet,
+  Button,
+  Modal,
+  Image,
+} from "react-native";
 import { useState } from "react";
 
 export default function GoalInput(props) {
@@ -14,32 +21,56 @@ export default function GoalInput(props) {
   }
 
   return (
-    <View style={styles.inputContainer}>
-      <TextInput
-        style={styles.textInput}
-        placeholder="What are your course goals?"
-        onChangeText={goalInputHandler}
-        value={enteredGoalText}
-      />
-      <Button title="Add Goal" onPress={addGoalHandler} />
-    </View>
+    <Modal visible={props.visible} animationType="slide">
+      <View style={styles.inputContainer}>
+        <Image
+          style={styles.image}
+          source={require("../assets/images/goal.png")}
+        />
+        <TextInput
+          style={styles.textInput}
+          placeholder="What are your course goals?"
+          onChangeText={goalInputHandler}
+          value={enteredGoalText}
+        />
+        <View style={styles.buttonContainer}>
+          <View style={styles.button}>
+            <Button title="Add Goal" onPress={addGoalHandler} color="#b180f0" />
+          </View>
+          <View style={styles.button}>
+            <Button title="Cancel" onPress={props.onCancel} color="#f31282" />
+          </View>
+        </View>
+      </View>
+    </Modal>
   );
 }
 
 const styles = StyleSheet.create({
   inputContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flex: 1,
+    justifyContent: "center",
     alignItems: "center",
-    marginBottom: 24,
-    borderBottomWidth: 1,
-    borderBottomColor: "#cccccc",
+    padding: 16,
+    backgroundColor: "#311b6b",
+  },
+  image: {
+    width: 100,
+    height: 100,
+    margin: 20,
   },
   textInput: {
     borderWidth: 1,
     borderColor: "#cccccc",
-    width: "70%",
-    marginRight: 8,
+    width: "100%",
     padding: 8,
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    marginTop: 16,
+  },
+  button: {
+    width: 100,
+    marginHorizontal: 8,
   },
 });
